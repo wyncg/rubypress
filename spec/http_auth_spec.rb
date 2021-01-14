@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 describe "#httpAuth" do
 
-  Rubypress::Client.class_eval do
+  RubypressWithoutSslCheck::Client.class_eval do
     def rspec_connection
       @connection
     end

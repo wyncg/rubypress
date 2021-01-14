@@ -1,4 +1,4 @@
-module Rubypress
+module RubypressWithoutSslCheck
 
   module Comments
 

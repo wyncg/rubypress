@@ -9,7 +9,7 @@ http_interactions:
         <?xml version="1.0" ?><methodCall><methodName>wp.getComment</methodName><params><param><value><array><data><value><i4>0</i4></value><value><string><WORDPRESS_USERNAME></string></value><value><string>gxB06s8Z</string></value><value><i4>13</i4></value></data></array></value></param></params></methodCall>
     headers:
       User-Agent:
-      - XMLRPC::Client (Ruby 2.0.0)
+      - XMLRPCWithoutSslCheck::Client (Ruby 2.0.0)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:

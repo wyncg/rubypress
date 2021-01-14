@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__)) unless $LOAD_PATH.include?(File.dirname(__FILE__))
 
-require 'xmlrpc/client'
-require 'rubypress/client'
+require 'xmlrpc-without-ssl-check/client'
+require 'rubypress-without-ssl-check/client'
 
 unless defined?(ActiveSupport)
   class Hash
@@ -24,7 +24,7 @@ end
 
 require 'pp'
 
-class XMLRPC::Client
+class XMLRPCWithoutSslCheck::Client
   def set_debug
     @http.set_debug_output($stderr);
   end

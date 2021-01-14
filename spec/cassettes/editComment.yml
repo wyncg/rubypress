@@ -9,7 +9,7 @@ http_interactions:
         <?xml version="1.0" ?><methodCall><methodName>wp.editComment</methodName><params><param><value><array><data><value><i4>0</i4></value><value><string><WORDPRESS_USERNAME></string></value><value><string>gxB06s8Z</string></value><value><i4>13</i4></value><value><struct><member><name>comment_parent</name><value><string></string></value></member><member><name>content</name><value><string>This is a test thing here.</string></value></member><member><name>author</name><value><string>John Adams</string></value></member><member><name>author_url</name><value><string>http://johnadamsforpresidentnow.com</string></value></member><member><name>author_email</name><value><string>johnadams@whitehouse.gov</string></value></member></struct></value></data></array></value></param></params></methodCall>
     headers:
       User-Agent:
-      - XMLRPC::Client (Ruby 2.0.0)
+      - XMLRPCWithoutSslCheck::Client (Ruby 2.0.0)
       Content-Type:
       - text/xml; charset=utf-8
       Content-Length:

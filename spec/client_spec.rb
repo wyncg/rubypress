@@ -3,11 +3,11 @@ require_relative 'spec_helper'
 describe "#client" do
 
   it '#initialize' do
-    CLIENT.class.should == Rubypress::Client
+    CLIENT.class.should == RubypressWithoutSslCheckWithoutSslCheck::Client
   end
 
   it "#execute" do
-    Rubypress::Client.any_instance.stub_chain(:connection, :call){ [{"user_id"=>"46917508", "user_login"=>"johnsmith", "display_name"=>"john"}, {"user_id"=>"33333367", "user_login"=>"johnsmith", "display_name"=>"johnsmith"}] }
+    RubypressWithoutSslCheck::Client.any_instance.stub_chain(:connection, :call){ [{"user_id"=>"46917508", "user_login"=>"johnsmith", "display_name"=>"john"}, {"user_id"=>"33333367", "user_login"=>"johnsmith", "display_name"=>"johnsmith"}] }
     expect(CLIENT.execute("wp.getAuthors", {})).to eq( [{"user_id"=>"46917508", "user_login"=>"johnsmith", "display_name"=>"john"}, {"user_id"=>"33333367", "user_login"=>"johnsmith", "display_name"=>"johnsmith"}] )
   end
 
@@ -36,15 +36,15 @@ describe "#client" do
   end
 
   it '#execute only sets up retries for the current instance' do
-    retryable_connection = Rubypress::Client.new(CLIENT_OPTS.merge(retry_timeouts: true)).connection
-    standard_connection = Rubypress::Client.new(CLIENT_OPTS).connection
+    retryable_connection = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS.merge(retry_timeouts: true)).connection
+    standard_connection = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS).connection
 
     expect(retryable_connection).to respond_to(:call_with_retry)
     expect(standard_connection).to_not respond_to(:call_with_retry)
   end
 
   it '#execute retries timeouts when retry_timeouts option is true' do
-    client = Rubypress::Client.new(CLIENT_OPTS.merge(retry_timeouts: true))
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS.merge(retry_timeouts: true))
     connection = client.connection
     client.stub(:connection).and_return(connection)
 
@@ -53,7 +53,7 @@ describe "#client" do
   end
 
   it '#execute retries when catch broken pipe exception and retry_timeouts option is true' do
-    client = Rubypress::Client.new(CLIENT_OPTS.merge(retry_timeouts: true))
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS.merge(retry_timeouts: true))
     connection = client.connection
     client.stub(:connection).and_return(connection)
 
@@ -63,19 +63,19 @@ describe "#client" do
 
 
   it '#execute does not retry timeouts by default' do
-    client = Rubypress::Client.new(CLIENT_OPTS)
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS)
     expect(client).to_not receive(:call_with_retry)
     expect { client.execute('newComment', {}) }.to raise_error(VCR::Errors::UnhandledHTTPRequestError)
   end
 
   it "#connection does not include cookies by default" do
-    client = Rubypress::Client.new(CLIENT_OPTS)
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS)
     connection = client.connection
     expect(connection.cookie).to eq nil
   end
 
   it "#connection includes cookies when set" do
-    client = Rubypress::Client.new(CLIENT_OPTS.merge(cookie: "foo=bar"))
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS.merge(cookie: "foo=bar"))
     connection = client.connection
     expect(connection.cookie).to include("foo=bar")
   end
@@ -92,13 +92,13 @@ describe "#client" do
   end
 
   it "#connection defaults the timeout to 30s" do
-    client = Rubypress::Client.new(CLIENT_OPTS)
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS)
     connection = client.connection
     expect(connection.timeout).to eq 30
   end
 
   it "#connection timeout can be overridden" do
-    client = Rubypress::Client.new(CLIENT_OPTS.merge(timeout: 60))
+    client = RubypressWithoutSslCheck::Client.new(CLIENT_OPTS.merge(timeout: 60))
     connection = client.connection
     expect(connection.timeout).to eq 60
   end

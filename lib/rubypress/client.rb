@@ -10,13 +10,13 @@ require_relative 'options'
 require_relative 'users'
 require_relative 'xml_rpc_retryable'
 
-module Rubypress
+module RubypressWithoutSslCheck
 
   class Client
 
     attr_reader :connection
     attr_accessor :port, :ssl_port, :host, :path, :username, :password, :use_ssl, :default_post_fields,
-                  :debug, :http_user, :http_password, :retry_timeouts, :timeout, :cookie
+                  :debug, :http_user, :http_password, :retry_timeouts, :timeout, :cookie, :skip_ssl_check
 
     def initialize(options = {})
       {
@@ -33,14 +33,15 @@ module Rubypress
         :http_password => nil,
         :retry_timeouts => false,
         :timeout => 30,
-        :cookie => nil
+        :cookie => nil,
+        :skip_ssl_check => true
       }.merge(options).each{ |opt| self.send("#{opt[0]}=", opt[1]) }
       self
     end
 
     def connection
       if @connection.nil?
-        @connection = XMLRPC::Client.new(self.host, self.path, (self.use_ssl ? self.ssl_port : self.port),nil,nil,self.http_user,self.http_password,self.use_ssl,self.timeout)
+        @connection = XMLRPCWithoutSslCheck::Client.new(self.host, self.path, (self.use_ssl ? self.ssl_port : self.port),nil,nil,self.http_user,self.http_password,self.use_ssl,self.timeout,self.skip_ssl_check)
         @connection.http_header_extra = {'accept-encoding' => 'identity'}
         @connection.extend(XMLRPCRetryable) if retry_timeouts
         @connection.cookie = self.cookie unless self.cookie.nil?

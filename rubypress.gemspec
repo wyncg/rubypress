@@ -1,12 +1,12 @@
 $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = 'rubypress'
-  s.version = '1.2.2'
+  s.name = 'rubypress-without-ssl-check'
+  s.version = '1.0.0'
   s.platform = Gem::Platform::RUBY
-  s.author = 'Zach Feldman'
-  s.email = ['zachfeldman@gmail.com']
-  s.homepage = 'https://github.com/zachfeldman/rubypress'
+  s.author = 'Yining Wang'
+  s.email = ['yining@cortx.com']
+  s.homepage = 'https://github.com/wyncg/rubypress-without-ssl-check'
   s.summary = 'Easily access WordPress installations through the WordPress XML-RPC API.'
   s.description = 'Easily access WordPress installations through the WordPress XML-RPC API. This gem exactly mirrors the functionality provided by the WordPress XML-RPC API in Ruby.'
   s.license = 'GPLv2'
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files += Dir['lib/rubypress/**']
 
   s.add_dependency 'retryable-rb'
-  s.add_dependency 'xmlrpc'
+  s.add_dependency 'xmlrpc-without-ssl-check'
 
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rdoc'

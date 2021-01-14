@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
-require 'rubypress'
+require 'rubypress_without_ssl_check'
 require 'tempfile'
 require_relative 'vcr_setup'
 
@@ -42,8 +42,8 @@ HTTP_AUTH_CLIENT_OPTS = CLIENT_OPTS.merge(
 )
 
 
-CLIENT = Rubypress::Client.new( CLIENT_OPTS )
+CLIENT = RubypressWithoutSslCheck::Client.new( CLIENT_OPTS )
 
-HTTP_AUTH_CLIENT = Rubypress::Client.new( HTTP_AUTH_CLIENT_OPTS )
+HTTP_AUTH_CLIENT = RubypressWithoutSslCheck::Client.new( HTTP_AUTH_CLIENT_OPTS )
 
 STRING_NUMBER_REGEX = /^[-+]?[0-9]+$/
